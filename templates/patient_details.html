@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<main class="full-screen-section d-flex justify-content-center align-items-center bg-light">
+  <div class="t_container"> 
+    <h2 class="text-center text-primary mb-4">Patient Details</h2>
+
+    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;"> 
+      <form method="POST" action="{{ url_for('patient_details', patient_id=patient.id) }}">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>
+                <label for="patient_name" class="form-label">Patient Name:</label>
+              </td>
+              <td>
+                <input type="text" id="patient_name" name="patient_name" 
+                       value="{{ patient.name }}" class="form-control" required>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="gender" class="form-label">Gender:</label>
+              </td>
+              <td>
+                <select id="gender" name="gender" class="form-control" required>
+                  <option value="Male" {{ 'selected' if patient.gender == 'Male' else '' }}>Male</option>
+                  <option value="Female" {{ 'selected' if patient.gender == 'Female' else '' }}>Female</option>
+                  <option value="Other" {{ 'selected' if patient.gender == 'Other' else '' }}>Other</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="phone" class="form-label">Phone Number:</label>
+              </td>
+              <td>
+                <input type="text" id="phone" name="phone" value="{{ patient.phone }}" 
+                       class="form-control" required>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="age" class="form-label">Age:</label>
+              </td>
+              <td>
+                <input type="number" id="age" name="age" value="{{ patient.age }}" 
+                       class="form-control" required>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="address" class="form-label">Address:</label>
+              </td>
+              <td>
+                <textarea id="address" name="address" class="form-control" rows="3" required>{{ patient.address }}</textarea>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" class="text-center">
+                <button type="submit" class="btn btn-primary">Update Patient</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+</main>
+{% endblock %}

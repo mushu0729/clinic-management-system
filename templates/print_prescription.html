@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Prescription</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .print-section {
+            margin: 20px;
+        }
+
+        /* Scrollable section for large data */
+        .scrollable-table {
+            max-height: 400px; /* Adjust height as needed */
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            margin-top: 15px;
+            display: block;
+        }
+
+        /* Print styles */
+        @media print {
+            .print-btn {
+                display: none;
+            }
+
+            .scrollable-table {
+                max-height: none;
+                overflow: visible;
+                page-break-inside: avoid; /* Prevents page breaks inside table */
+            }
+
+            /* Force page breaks between each section if needed */
+            table {
+                page-break-inside: auto;
+            }
+
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+        }
+
+        /* Header styles */
+        .header {
+            display: flex; /* Use flexbox for layout */
+            align-items: center; /* Center items vertically */
+            justify-content: space-between; /* Space between logo and title */
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            max-width: 150px; /* Adjust logo size as needed */
+            height: auto;
+            margin-right: 15px; /* Space between logo and text */
+        }
+
+        .header-title {
+            flex-grow: 1; /* Allow title to take up remaining space */
+            text-align: center; /* Center title text */
+        }
+
+        .header h4 {
+            margin: 5px 0; /* Space above and below title */
+        }
+
+        .header p {
+            margin: 0; /* Remove default margin for paragraph */
+            font-size: 0.9rem; /* Smaller font size for address */
+        }
+
+        /* Info section styling */
+        .info {
+            text-align: center; /* Center text alignment for other information */
+            margin-top: 10px; /* Add space above */
+        }
+
+        .text-center {
+            text-align: left; /* Align text to the left */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with hospital logo and information -->
+    <div class="header">
+        <img src="{{ url_for('static', filename='logo-blue.png') }}" alt="Hospital Logo">
+        <div class="header-title">
+            <h4>UNIFIED MENTOR MEMORIAL PRIVATE HOSPITAL </h4> <!-- Name centered in the header -->
+            <p>DLF Forum, DLF Cyber City, DLF Phase 3, Sector 24, Gurugram, Haryana 122010</p> <!-- Address in smaller font below the name -->
+        </div>
+        <div>
+        <h6>Phone: 062838 00330</h6> <!-- Phone number -->
+        <h6>Email: info@unifiedmentor.com</h6> <!-- Email address -->
+        </div>
+    </div>
+
+    <div class="print-section">
+        <h2 class="text-center">Patient Prescription Summary</h2>
+        <hr>
+
+        <!-- Display the logged-in doctor's name -->
+        <h5 class="text-center">Attended Doctor: {{ current_user.username }}</h5>
+        <hr>
+
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ patient.name }}</td>
+                    <td>{{ patient.gender }}</td>
+                    <td>{{ patient.age }}</td>
+                    <td>{{ patient.phone }}</td>
+                    <td>{{ patient.address }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4 class="mt-4">Appointments & Prescriptions</h4>
+
+        <div class="scrollable-table">
+            <table class="table table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Disease Description</th>
+                        <th>Prescriptions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in patient.appointments %}
+                        <tr>
+                            <td>{{ appointment.appointment_date }}</td>
+                            <td>{{ appointment.appointment_time }}</td>
+                            <td>{{ appointment.disease_description }}</td>
+                            <td>
+                                <ul>
+                                    {% for prescription in appointment.prescriptions %}
+                                        <li>{{ prescription.prescription }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <button class="btn btn-primary print-btn" onclick="window.print()">Print</button>
+    </div>
+</body>
+</html>

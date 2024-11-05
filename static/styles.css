@@ -1,0 +1,153 @@
+/* Ensure body takes up the full screen */
+body {
+    padding-top: 56px; /* Adjust based on your navbar height */
+    margin: 0; /* Remove default margin */
+    min-height: 100vh; /* Full viewport height */
+    background-image: url('/static/Blue-with-Colorful-Confetti-Sports-Invitation-17.jpg');
+    background-size: cover; /* Make sure the image covers the entire area */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-position: center; /* Center the background image */
+    font-family: Arial, sans-serif; /* Set font */
+    color: #343a40; /* Dark text color */
+}
+
+/* Ensure the footer is always at the bottom */
+footer {
+    margin-top: auto;
+    padding: 10px 5;
+    background-color: #e9ecef;
+    text-align: center;
+}
+
+/* Header and content spacing */
+header {
+    margin-bottom: 20px;
+}
+
+/* Center the form container */
+.login-container {
+    max-width: 460px;
+    margin: 100px auto; /* Center the form vertically with spacing */
+    padding: 20px;
+    background-color: #ffffff4d;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+}
+
+/* Form inputs */
+.form-label {
+    font-weight: bold;
+    /*background-color: white;*/
+    border-radius: 5px;
+    color: rgb(16, 16, 107);
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Button styling */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #21f50e;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+/* Navbar customization */
+.navbar {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+    transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+/* Make sure the body takes up the entire viewport for sticky footer */
+html, body {
+    height: 100%; /* Ensures full height */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* Takes the remaining space */
+}
+
+footer {
+    background-color: #e9ecef;
+    text-align: center;
+    padding: 10px 0;
+}
+  
+  .card {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 18px;
+    margin-top: -155px;
+    max-width: 460px;
+  }
+  
+  h2 {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    font-weight: bold;
+    color: rgb(9, 13, 71);
+  }
+.view-card{
+    /*background-color:white;*/
+    width: 360;
+    border-radius: 18px;
+    margin-top: -155px;
+    max-width: 460px;
+    padding: 10px;
+    backdrop-filter: blur(45px);
+    border-top-width: 15px;
+}
+.full-screen-section {
+    height: calc(100vh - 56px); /* Adjust height based on navbar height */
+  }
+
+  /* Optional: Remove scrollbars and extra padding */
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+  .full-screen-section{
+    background-color: rgba(255, 255, 255, 0.527);
+  }
+  .t_container{
+    display:table;
+    width: 90%;
+    
+  }
+  .appointment-details {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3 {
+    text-align: center;
+}

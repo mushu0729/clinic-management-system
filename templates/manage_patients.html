@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<main class="full-screen-section d-flex flex-column justify-content-center align-items-center">
+  <div class="text-center" style="width: 25rem;">
+    <h2 style="background-color: white;" class="text-primary fw-bold mb-4">Manage Patients</h2>
+    <form method="POST" class="px-4">
+      <div class="form-group mb-3">
+        <label for="patient_name" style="background-color: white;border-radius: 2px;" class="form-label fw-semibold">Patient Name:</label>
+        <input type="text" id="patient_name" name="patient_name" 
+               class="form-control border-2 rounded-3" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100 rounded-pill">Search</button>
+    </form>
+  </div>
+  
+ 
+</main>
+
+{% endblock %}

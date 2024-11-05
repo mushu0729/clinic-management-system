@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}View Appointments{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+    <div class="table">  
+        <h2 style="background-color: white;" class="table table-striped">Appointments</h2>
+
+        {% if appointment_details %}
+            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;"> <!-- Set a max height for scrolling -->
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Appointment ID</th>
+                            <th scope="col">Patient Name</th>
+                            <th scope="col">Appointment Date</th>
+                            <th scope="col">Appointment Time</th>
+                            <th scope="col">Disease Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for detail in appointment_details %}
+                            <tr>
+                                <td>{{ detail.appointment.id }}</td>
+                                <td>{{ detail.patient.name }}</td>
+                                <td>{{ detail.appointment.appointment_date }}</td>
+                                <td>{{ detail.appointment.appointment_time }}</td>
+                                <td>{{ detail.appointment.disease_description }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No appointments found.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Schedule Appointment{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<style>
+  .appointment-form-container {
+    width: 80%;
+    max-height: 80vh;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    overflow-y: auto; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+label {
+    font-weight: bold;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+h1{
+  margin-bottom: 10px;
+  padding: 10px;
+  vertical-align: top;
+  text-align: center;
+  color: #10263d;
+  font-weight: bold;
+}
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+button:hover {
+    background-color: #0056b3;
+}
+
+textarea {
+    width: 100%;
+    height: 80px; /* Adjust height as needed */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+</style>
+    
+    <div class="appointment-form-container">
+      <h1>Schedule Appointment</h1>
+        <form method="POST">
+            <table>
+              
+                <tr>
+                    <td colspan="2"><h2>Select Existing Patient</h2></td>
+                </tr>
+                <tr>
+                    <td><label for="patient_id">Existing Patient:</label></td>
+                    <td>
+                        <select name="patient_id">
+                            <option value="">Select a patient (Optional)</option>
+                            {% for patient in patients %}
+                                <option value="{{ patient.id }}">{{ patient.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><h2>Add New Patient</h2></td>
+                </tr>
+                <tr>
+                    <td><label for="new_patient_name">Name:</label></td>
+                    <td><input type="text" name="new_patient_name"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="new_patient_gender">Gender:</label></td>
+                    <td>
+                        <select name="new_patient_gender">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label for="new_patient_phone">Phone:</label></td>
+                    <td><input type="text" name="new_patient_phone"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="new_patient_age">Age:</label></td>
+                    <td><input type="number" name="new_patient_age"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="new_patient_address">Address:</label></td>
+                    <td><textarea name="new_patient_address"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><h2>Appointment Details</h2></td>
+                </tr>
+                <tr>
+                    <td><label for="appointment_date">Appointment Date:</label></td>
+                    <td><input type="date" name="appointment_date" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="appointment_time">Appointment Time:</label></td>
+                    <td><input type="time" name="appointment_time" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="disease_description">Disease Description:</label></td>
+                    <td><textarea name="disease_description" required></textarea></td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><button type="submit">Schedule Appointment</button></td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <button type="button"onclick="window.location='{{ url_for('view_appointments') }}'" style="padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        View Appointments
+                    </button>
+                </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+   
+{% endblock %}

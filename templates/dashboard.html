@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<style>
+    .Dashboard-container {
+        margin-top: 30px; 
+        padding: 10px;  
+        border-radius: 10px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        display: flex; 
+        overflow-x: auto; 
+        white-space: nowrap;
+        gap: 20px; 
+    }
+
+    .Dashboard-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); 
+        transition: transform 0.3s ease; 
+        min-width: 300px; 
+        display: inline-block;
+    }
+
+    .Dashboard-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .Dashboard-card-body {
+        padding: 30px;
+    }
+
+    
+    .Dashboard-card-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+    }
+
+   
+    .Dashboard-card-text {
+        font-size: 3.5rem; 
+        font-weight: bold;
+        margin: 20px 0; 
+    }
+
+    @media (max-width: 768px) {
+        .Dashboard-container {
+            padding: 15px; 
+        }
+
+        .Dashboard-card {
+            margin-bottom: 20px;
+        }
+
+        .Dashboard-card-title {
+            font-size: 1.5rem;
+        }
+
+        .Dashboard-card-text {
+            font-size: 3rem;
+        }
+    }
+
+    .About-section {
+        margin-top: 50px; 
+        padding: 20px;
+        border-radius: 10px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        background-color: #f8f9fa;
+    }
+
+    .About-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .About-text {
+        font-size: 1.2rem; 
+        line-height: 1.5; 
+    }
+</style>
+<div class="Dashboard-container my-5" style="z-index: 1; position: relative;">
+    <div class="Dashboard-card text-white bg-primary text-center">
+        <div class="Dashboard-card-body">
+            <h5 class="Dashboard-card-title">Total Patients</h5>
+            <p class="Dashboard-card-text display-4">{{ patient_count }}</p>
+        </div>
+    </div>
+    <div class="Dashboard-card text-white bg-success text-center">
+        <div class="Dashboard-card-body">
+            <h5 class="Dashboard-card-title">Total Appointments</h5>
+            <p class="Dashboard-card-text display-4">{{ appointment_count }}</p>
+        </div>
+    </div>
+    {% if current_user.is_authenticated %}
+        {% if current_user.role == 'doctor' %}
+            <div class="Dashboard-card text-white bg-info text-center">
+                <div class="Dashboard-card-body">
+                    <h5 class="Dashboard-card-title">Manage Patients</h5>
+                    <a href="{{ url_for('manage_patients') }}" class="btn btn-light">Go to Manage Patients</a>
+                </div>
+            </div>
+
+            <div class="Dashboard-card text-white bg-warning text-center">
+                <div class="Dashboard-card-body">
+                    <h5 class="Dashboard-card-title">View Appointments</h5>
+                    <a href="{{ url_for('view_appointments') }}" class="btn btn-light">Go to View Appointments</a>
+                </div>
+            </div>
+        {% elif current_user.role == 'receptionist' %}
+            <div class="Dashboard-card text-white bg-info text-center">
+                <div class="Dashboard-card-body">
+                    <h5 class="Dashboard-card-title">Schedule Appointments</h5>
+                    <a href="{{ url_for('schedule_appointment') }}" class="btn btn-light">Go to Schedule Appointments</a>
+                </div>
+            </div>
+
+            <div class="Dashboard-card text-white bg-warning text-center">
+                <div class="Dashboard-card-body">
+                    <h5 class="Dashboard-card-title">Patient Records</h5>
+                    <a href="{{ url_for('patient_records') }}" class="btn btn-light">Go to Patient Records</a>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
